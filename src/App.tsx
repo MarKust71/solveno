@@ -14,6 +14,7 @@ function App() {
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState<Rotate>(0);
     const styles = useStyles();
+    console.log(styles);
 
     const onLoadSuccess = (pdf: PDFDocumentProxy) => {
         const { numPages } = pdf;
@@ -104,7 +105,7 @@ function App() {
         <Container style={{ marginTop: 10 }}>
             <Paper elevation={5}>
                 <PdfDocument
-                    file="./assets/fax@pbsim.pl_20201013_135510.pdf"
+                    file="./assets/fax@pbsim.pl_20201112_095939.pdf"
                     onLoadSuccess={onLoadSuccess}
                     pageNumber={pageNumber}
                     scale={scale}
