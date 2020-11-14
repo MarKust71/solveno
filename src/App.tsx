@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Input, Paper } from '@material-ui/core';
 import { pdfjs } from 'react-pdf';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 import { PdfDocument, Rotate } from './components/PdfDocument';
 import { makeStyles } from '@material-ui/styles';
 import { PDFDocument } from 'pdf-lib';
+import { getAllFiles } from './endpoints/getAllFiles';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -13,14 +14,14 @@ function App() {
     const [pageNumber, setPageNumber] = useState<number | undefined>(1);
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState<Rotate>(0);
+    const [response, setResponse] = useState('');
     const styles = useStyles();
-    console.log(styles);
 
     const onLoadSuccess = (pdf: PDFDocumentProxy) => {
         const { numPages } = pdf;
         setPages(numPages);
         setPageNumber(1);
-        pdf.getMetadata().then((result) => console.log(result));
+        pdf.getMetadata().then((result) => console.log('getMetaData:', result));
         pdf.getData().then((result) => {
             // @ts-ignore
             PDFDocument.load(result, { updateMetadata: true }).then((pdfDoc) => {
@@ -101,6 +102,10 @@ function App() {
         setRotate(0);
     };
 
+    useEffect(() => {
+        getAllFiles();
+    }, []);
+
     return (
         <Container style={{ marginTop: 10 }}>
             <Paper elevation={5}>
@@ -145,6 +150,8 @@ function App() {
                     </Button>
                 </div>
             </div>
+            <div>path:{__dirname}</div>
+            <div>res:{response}</div>
         </Container>
     );
 }

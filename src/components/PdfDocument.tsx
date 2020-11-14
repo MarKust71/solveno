@@ -15,9 +15,10 @@ type Props = {
 
 export const PdfDocument = ({ file, onLoadSuccess, pageNumber, scale, rotate }: Props) => {
     const onLoadPageSuccess = (page: PDFPageProxy) => {
-        page.getAnnotations().then((result) => console.log(result));
-        page.getTextContent().then((result) => console.log(result));
+        page.getAnnotations().then((result) => console.log('getAnnotation', result));
+        page.getTextContent().then((result) => console.log('getTextContent', result));
         console.log(
+            'getVieport',
             page.getViewport({
                 dontFlip: undefined,
                 offsetX: undefined,

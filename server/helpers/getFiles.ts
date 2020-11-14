@@ -1,5 +1,5 @@
 import fs from 'fs';
 
-export const getFiles = () => {
-    return fs.readdirSync('../public/assets');
+export const getFiles = (path: string) => {
+    return fs.readdirSync(path);
 };
