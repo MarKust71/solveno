@@ -33,7 +33,7 @@ export const PdfDocument = ({ file, onLoadSuccess, pageNumber, scale, rotate }: 
         <Document file={file} onLoadSuccess={onLoadSuccess}>
             <Page
                 pageNumber={pageNumber || 1}
-                scale={scale || 1}
+                scale={scale || 1.5}
                 rotate={rotate || 0}
                 onLoadSuccess={onLoadPageSuccess}
             />
