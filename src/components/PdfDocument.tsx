@@ -7,30 +7,16 @@ export type Rotate = 0 | 90 | 180 | 270 | undefined;
 
 type Props = {
     file: string;
-    onLoadSuccess: (pdf: PDFDocumentProxy) => void;
+    onLoadDocumentSuccess: (pdf: PDFDocumentProxy) => void;
+    onLoadPageSuccess: (page: PDFPageProxy) => void;
     pageNumber?: number;
     scale?: number;
     rotate?: Rotate;
 };
 
-export const PdfDocument = ({ file, onLoadSuccess, pageNumber, scale, rotate }: Props) => {
-    const onLoadPageSuccess = (page: PDFPageProxy) => {
-        page.getAnnotations().then((result) => console.log('getAnnotation', result));
-        page.getTextContent().then((result) => console.log('getTextContent', result));
-        console.log(
-            'getVieport',
-            page.getViewport({
-                dontFlip: undefined,
-                offsetX: undefined,
-                offsetY: undefined,
-                rotation: undefined,
-                scale: 1,
-            }),
-        );
-    };
-
+export const PdfDocument = ({ file, onLoadDocumentSuccess, onLoadPageSuccess, pageNumber, scale, rotate }: Props) => {
     return (
-        <Document file={file} onLoadSuccess={onLoadSuccess}>
+        <Document file={file} onLoadSuccess={onLoadDocumentSuccess}>
             <Page
                 pageNumber={pageNumber || 1}
                 scale={scale || 1.5}
@@ -40,5 +26,3 @@ export const PdfDocument = ({ file, onLoadSuccess, pageNumber, scale, rotate }: 
         </Document>
     );
 };
-
-// const styles = StyleSheet.create({});

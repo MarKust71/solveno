@@ -5,6 +5,7 @@ import { PdfDocument, Rotate } from '../../components/PdfDocument';
 import { PDFDocumentProxy } from 'pdfjs-dist';
 import { PDFDocument } from 'pdf-lib';
 import { ControlPanel } from '../../components/ControlPanel/ControlPanel';
+import { PDFPageProxy } from 'react-pdf/dist/Page';
 
 export const RightPanel = () => {
     const styles = useStyles();
@@ -98,12 +99,28 @@ export const RightPanel = () => {
         });
     };
 
+    const onLoadPageSuccess = (page: PDFPageProxy) => {
+        page.getAnnotations().then((result) => console.log('getAnnotation', result));
+        page.getTextContent().then((result) => console.log('getTextContent', result));
+        console.log(
+            'getVieport',
+            page.getViewport({
+                dontFlip: undefined,
+                offsetX: undefined,
+                offsetY: undefined,
+                rotation: undefined,
+                scale: 1,
+            }),
+        );
+    };
+
     return (
         <div>
             <Paper elevation={3} className={styles.paper}>
                 <PdfDocument
                     file="/assets/fax@pbsim.pl_20201112_095939.pdf"
-                    onLoadSuccess={onLoadSuccess}
+                    onLoadPageSuccess={onLoadPageSuccess}
+                    onLoadDocumentSuccess={onLoadSuccess}
                     pageNumber={pageNumber}
                     scale={scale}
                     rotate={rotate}

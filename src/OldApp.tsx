@@ -109,6 +109,7 @@ function OldApp() {
     return (
         <Container style={{ marginTop: 10 }}>
             <Paper elevation={5}>
+                {/*
                 <PdfDocument
                     file="./assets/fax@pbsim.pl_20201112_095939.pdf"
                     onLoadSuccess={onLoadSuccess}
@@ -116,6 +117,7 @@ function OldApp() {
                     scale={scale}
                     rotate={rotate}
                 />
+*/}
             </Paper>
             <div id="my_pdf_viewer" style={{ display: 'grid' }}>
                 <div id="navigation-controls">
