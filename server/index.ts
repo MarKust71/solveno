@@ -20,10 +20,14 @@ app.use(
 );
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Server seems to be  running...').status(200);
+});
+
 app.get('/api/', (req, res) => {
     const myFiles = getFiles(path.join(process.env.PDF_INBOX_PATH));
     // res.json(myFiles).status(200);
-    res.send(myFiles);
+    res.send(myFiles).status(200);
 });
 
 app.listen(PORT, () => {
