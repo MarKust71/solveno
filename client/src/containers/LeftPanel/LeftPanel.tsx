@@ -5,18 +5,20 @@ import FolderIcon from '@material-ui/icons/Folder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { getAllFiles } from '../../endpoints/getAllFiles';
+import CustomizedSelects from '../../components/CustomizedSelects';
 
 export const LeftPanel = () => {
     const styles = useStyles();
     const [value, setValue] = useState('folder');
     const [viewport, setViewport] = useState('');
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState([]);
 
     useEffect(() => {
         const files = async () => {
             const filesList = await getAllFiles();
             console.log(filesList);
-            setResponse(JSON.stringify(filesList, null, 2));
+            // setResponse(JSON.stringify(filesList, null, 2));
+            setResponse(filesList);
         };
         files();
     }, []);
@@ -24,8 +26,9 @@ export const LeftPanel = () => {
     return (
         <div>
             <Paper elevation={3} className={styles.paper}>
-                <div>{value}</div>
-                <div>{response}</div>
+                {/*<div>{value}</div>*/}
+                {/*<div>{response}</div>*/}
+                <CustomizedSelects files={response} />
             </Paper>
             <BottomNavigation
                 value={value}
@@ -49,10 +52,12 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     paper: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
         height: 833,
         maxHeight: 833,
-        display: 'flex',
-        justifyContent: 'center',
         overflow: 'auto',
     },
     root: { marginTop: 3 },
