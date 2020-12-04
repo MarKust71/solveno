@@ -1,11 +1,13 @@
 import express from 'express';
 import { getFiles } from './helpers/getFiles';
+import { hostname } from 'os';
 
 const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = 4000;
+const HOST = process.env.SERVER_HOST || 'localhost';
+const PORT = parseInt(process.env.SERVER_PORT || '4000');
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
@@ -21,7 +23,7 @@ app.use(
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Server seems to be  running...').status(200);
+    res.send('Node server seems to be  running...').status(200);
 });
 
 app.get('/api/', (req, res) => {
@@ -30,6 +32,6 @@ app.get('/api/', (req, res) => {
     res.send(myFiles).status(200);
 });
 
-app.listen(PORT, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`⚡️[server]: Server is running at http://${HOST}:${PORT}`);
 });
