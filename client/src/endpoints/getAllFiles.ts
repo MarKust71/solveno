@@ -7,7 +7,7 @@ export const getAllFiles = async () => {
         // return await api.get('/');
         return filesList.data;
     } catch (error) {
-        console.log('axios error:', error.message);
+        console.error('axios error:', error);
     }
     return [];
 };
